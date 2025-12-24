@@ -26,12 +26,15 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.28.0'
-          channel: 'stable'
+          flutter-version: "3.35.7"
+          channel: "stable"
           cache: true
 
-      - name: Install dependencies
+      - name: Get dependencies
         run: flutter pub get
+
+      - name: Generate code
+        run: flutter pub run build_runner build --delete-conflicting-outputs
 
       - name: Build APK
         run: flutter build apk --release
@@ -66,7 +69,7 @@ jobs:
             - **AAB**: `app-release.aab` - For Google Play Store submission
             
             ### Build Information
-            - Flutter Version: 3.28.0
+            - Flutter Version: 3.35.7
             - Build Date: ${{ github.event.head_commit.timestamp }}
             - Commit: ${{ github.sha }}
         env:
